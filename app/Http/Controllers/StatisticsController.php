@@ -16,7 +16,7 @@ class StatisticsController extends Controller
         $username = Auth::user()->name;
 
 
-        $form = Form::paginate(10);
+        $form = Form::where("creator", Auth::user()->id)->paginate(10);
 
 
         return view("statistics.index", compact("title", "username", "form"));
