@@ -16,7 +16,7 @@
                 @foreach($responden as $r)
                 <tr>
                     <td>{{$loop->index + 1}}</td>
-                    <td>{{$r["pertanyaan"]}}</td>
+                    <td>{{$soal[$loop->index]}}</td>
                     <td>{{$r["jawaban"]}}</td>
                 </tr>
                 @endforeach

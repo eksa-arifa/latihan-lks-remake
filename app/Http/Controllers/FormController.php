@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Answer;
 use App\Models\Form;
 use App\Models\Question;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -13,12 +14,11 @@ class FormController extends Controller
 {
     public function index(){
         $title = "Form Management";
-        $username = Auth::user()->name;
         $host = $_SERVER["HTTP_HOST"];
 
-        $form = Form::where("creator", Auth::user()->id)->paginate(3);
+        $form = User::find(Auth::user()->id)->form()->paginate(3);
 
-        return view("form.management", compact("title", "username", "form", "host"));
+        return view("form.management", compact("title", "form", "host"));
     }
 
     public function createForm(Request $request){
@@ -32,7 +32,7 @@ class FormController extends Controller
         $create = Form::create([
             "title" => $request->title,
             "description" => $request->description,
-            "creator" => Auth::user()->id,
+            "user_id" => Auth::user()->id,
             "slug" => $slug
         ]);
 
@@ -56,12 +56,11 @@ class FormController extends Controller
 
     public function editForm($id){
         $title = "Edit Form";
-        $username = Auth::user()->name;
 
         $form = Form::findOrFail($id);
 
 
-        return view("form.editform", compact("title", "username", "form", "id"));
+        return view("form.editform", compact("title", "form", "id"));
     }
 
     public function editFormPost(Request $request){
@@ -83,13 +82,12 @@ class FormController extends Controller
 
     public function soalManagement($id){
         $title = "Soal Management";
-        $username = Auth::user()->name;
 
-        $questions = Question::where("id_form", $id)->paginate(5);
+        $questions = Form::find($id)->question()->paginate(5);
 
         $answers = Answer::get();
 
-        return view("form.soal.management", compact("title", "username", "questions", "id", "answers"));
+        return view("form.soal.management", compact("title", "questions", "id", "answers"));
     }
 
     public function soalCreate(Request $request){
@@ -102,7 +100,7 @@ class FormController extends Controller
         $create = Question::create([
             "question" => $request->question,
             "type" => $request->type,
-            "id_form" => $request->id
+            "form_id" => $request->id
         ]);
 
         if($create){
@@ -124,12 +122,11 @@ class FormController extends Controller
 
     public function soalEdit($id){
         $title = "Soal Edit";
-        $username = Auth::user()->name;
 
         $question = Question::find($id);
         
 
-        return view("form.soal.edit", compact("title", "username", "question", "id"));
+        return view("form.soal.edit", compact("title", "question", "id"));
     }
 
     public function soalEditPost(Request $request){
@@ -152,11 +149,10 @@ class FormController extends Controller
 
     public function jawaban($id, $form){
         $title = "Insert Jawaban";
-        $username = Auth::user()->name;
 
 
 
-        return view("form.jawaban.insert", compact("title", "username", "id", "form"));
+        return view("form.jawaban.insert", compact("title", "id", "form"));
     }
 
     public function jawabanPost(Request $request){
@@ -167,7 +163,7 @@ class FormController extends Controller
         foreach($request->answers as $a){
             Answer::create([
                 "answer" => $a,
-                "id_soal" => $request->id
+                "soal_id" => $request->id
             ]);
         }
 

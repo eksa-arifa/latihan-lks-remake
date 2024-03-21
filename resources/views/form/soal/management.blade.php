@@ -38,7 +38,7 @@
                                               @if($q["type"] == "multiple-answer")
                                               <ul>
                                                 @foreach($answers as $a)
-                                                  @if($a["id_soal"] == $q["id"])
+                                                  @if($a["soal_id"] == $q["id"])
 
                                                     <li>{{$a["answer"]}}</li>
 

@@ -33,15 +33,15 @@
             <h6>{{$s["question"]}}</h6>
             @if($s["type"] == "multiple-answer")
                 @foreach($jawaban as $j)
-                    @if($j["id_soal"] == $s["id"])
+                    @if($j["soal_id"] == $s["id"])
                         <div class="px-3">
-                            <input type="radio" name="jawaban[{{$s["question"]}}]" required id="jawaban{{$loop->index}}" value="{{$j["answer"]}}">
+                            <input type="radio" name="jawaban[{{$s["id"]}}]" required id="jawaban{{$loop->index}}" value="{{$j["answer"]}}">
                             <label for="jawaban{{$loop->index}}">{{$j["answer"]}}</label>
                         </div>
                     @endif
                 @endforeach
             @else
-            <input type="text" name="jawaban[{{$s["question"]}}]" class="form-control" required>
+            <input type="text" name="jawaban[{{$s["id"]}}]" class="form-control" required>
             @endif
         </div>
         <input type="hidden" name="id_form" value="{{$form->id}}">

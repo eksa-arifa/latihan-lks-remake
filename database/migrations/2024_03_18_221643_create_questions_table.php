@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->string("question");
             $table->string("type");
-            $table->string("id_form");
+            $table->foreignUuid("form_id")->references("id")->on("forms")->cascadeOnDelete();
             $table->timestamps();
         });
     }

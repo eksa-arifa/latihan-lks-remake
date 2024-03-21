@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->string("group");
-            $table->string("id_form");
+            $table->foreignUuid("form_id")->references("id")->on("forms")->cascadeOnDelete();
             $table->timestamps();
         });
     }

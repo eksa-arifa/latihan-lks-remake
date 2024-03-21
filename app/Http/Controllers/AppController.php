@@ -12,37 +12,33 @@ class AppController extends Controller
 {
     public function dashboard(){
         $title = "Dashboard";
-        $username = Auth::user()->name;
         $role = Auth::user()->role;
 
-        $formCount = count(Form::where("creator", Auth::user()->id)->get());
+        $formCount = count(User::find(Auth::user()->id)->form()->get());
 
-        return view("app.dashboard", compact("title", "username", "role", "formCount"));
+        return view("app.dashboard", compact("title", "role", "formCount"));
     }
 
     public function profile(){
         $title = "Profile";
-        $username = Auth::user()->name;
         $role = Auth::user()->role;
         $email = Auth::user()->email;
 
-        return view("app.profile", compact("title", "username", "role", "email"));
+        return view("app.profile", compact("title", "role", "email"));
     }
 
     public function editProfile(){
         $title = "Profile";
-        $username = Auth::user()->name;
         $role = Auth::user()->role;
 
-        return view("app.editprofile", compact("title", "username", "role"));
+        return view("app.editprofile", compact("title", "role"));
     }
 
     public function changePassword(){
         $title = "Change Password";
-        $username = Auth::user()->name;
         $role = Auth::user()->role;
 
-        return view("app.changepassword", compact("title", "username", "role"));
+        return view("app.changepassword", compact("title", "role"));
     }   
 
     public function editProfilePost(Request $request){

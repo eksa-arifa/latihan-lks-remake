@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Group extends Model
 {
@@ -11,6 +12,10 @@ class Group extends Model
 
     protected $fillable = [
         'group',
-        "id_form"
+        "form_id"
     ];
+
+    public function form(): BelongsTo{
+        return $this->belongsTo(Form::class);
+    }
 }

@@ -20,11 +20,11 @@ class AnsweringController extends Controller
 
             $idform = $form->id;
     
-            $creator = User::find($form->creator);
+            $creator = User::find($form->user_id);
     
     
     
-            $soal = Question::where("id_form", $idform)->get();
+            $soal = Question::where("form_id", $idform)->get();
             $jawaban = Answer::get();
     
             return view("mengerjakan", compact("form", "creator", "soal", "jawaban"));
@@ -47,7 +47,7 @@ class AnsweringController extends Controller
 
         $gcreate = Group::create([
             "group" => $randGroup,
-            "id_form" => $request->id_form
+            "form_id" => $request->id_form
         ]);
 
         if($gcreate){
@@ -57,7 +57,7 @@ class AnsweringController extends Controller
                     "group" => $randGroup,
                     "pertanyaan" => $key,
                     "jawaban" => $value,
-                    "id_soal" => $request->id_soal[$success]
+                    "soal_id" => $request->id_soal[$success]
                 ]);
     
                 if($create){

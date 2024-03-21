@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("group");
             $table->string("pertanyaan");
             $table->string("jawaban");
-            $table->string("id_soal");
+            $table->foreignUuid("soal_id")->references("id")->on("questions")->cascadeOnDelete();
             $table->timestamps();
         });
     }
