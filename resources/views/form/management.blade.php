@@ -35,11 +35,11 @@
                                               <td>{{$f["title"]}}</td>
                                               <td>{{$f["description"]}}</td>
                                               <td>{{"http://". $host . "/form/" .$f["slug"]}}</td>
-                                              <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Hapus</a><a href="/formmanagement/edit/{{$f['id']}}" class="btn btn-warning mx-2">Edit</a>
+                                              <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$f["id"]}}">Hapus</a><a href="/formmanagement/edit/{{$f['id']}}" class="btn btn-warning mx-2">Edit</a>
                                                   <a href="/formmanagement/soal/{{$f['id']}}" class="btn btn-primary">Detail</a></td>
                                             </tr>
 
-                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            <div class="modal fade" id="deleteModal{{$f["id"]}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
