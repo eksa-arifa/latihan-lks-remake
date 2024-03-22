@@ -85,9 +85,8 @@ class FormController extends Controller
 
         $questions = Form::find($id)->question()->paginate(5);
 
-        $answers = Answer::get();
 
-        return view("form.soal.management", compact("title", "questions", "id", "answers"));
+        return view("form.soal.management", compact("title", "questions", "id"));
     }
 
     public function soalCreate(Request $request){
@@ -163,7 +162,7 @@ class FormController extends Controller
         foreach($request->answers as $a){
             Answer::create([
                 "answer" => $a,
-                "soal_id" => $request->id
+                "question_id" => $request->id
             ]);
         }
 

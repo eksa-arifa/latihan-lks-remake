@@ -37,12 +37,11 @@
                                             <td id="answers{{$loop->index}}">
                                               @if($q["type"] == "multiple-answer")
                                               <ul>
-                                                @foreach($answers as $a)
-                                                  @if($a["soal_id"] == $q["id"])
+                                                @foreach($q->answer as $a)
+                                                  
 
                                                     <li>{{$a["answer"]}}</li>
 
-                                                  @endif
                                                 @endforeach
                                               </ul>
                                                    

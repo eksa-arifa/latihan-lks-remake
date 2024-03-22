@@ -32,16 +32,9 @@ class RespondensController extends Controller
     public function detail($group){
         $title = "Group respondens";
 
-        $soal = [];
-
         $responden = Responden::where("group", $group)->paginate(10);
 
-        foreach($responden as $r){
-            $s = Question::find($r["pertanyaan"]);
 
-            array_push($soal, $s->question);
-        }
-
-        return view("respondens.detail", compact("title", "responden", "group", "soal"));
+        return view("respondens.detail", compact("title", "responden", "group"));
     }
 }

@@ -23,22 +23,20 @@
         <h5>{{$form->description}}</h5>
     </div>
     <div class="card border-left-primary w-80 p-3 m-4">
-        <p>Di buat oleh {{$creator->name}}</p>
+        <p>Di buat oleh {{$form->user["name"]}}</p>
     </div>
     <p class="mx-4">Kerjakan form ini!!!</p>
     <form action="/form/post" method="post">
         @csrf
-        @foreach($soal as $s)
+        @foreach($form->question as $s)
         <div class="card border-left-primary w-80 p-3 m-4">
             <h6>{{$s["question"]}}</h6>
             @if($s["type"] == "multiple-answer")
-                @foreach($jawaban as $j)
-                    @if($j["soal_id"] == $s["id"])
+                @foreach($s->answer as $j)
                         <div class="px-3">
-                            <input type="radio" name="jawaban[{{$s["id"]}}]" required id="jawaban{{$loop->index}}" value="{{$j["answer"]}}">
-                            <label for="jawaban{{$loop->index}}">{{$j["answer"]}}</label>
+                            <input type="radio" name="jawaban[{{$s["id"]}}]" required id="jawaban{{$j["id"]}}" value="{{$j["answer"]}}">
+                            <label for="jawaban{{$j["id"]}}">{{$j["answer"]}}</label>
                         </div>
-                    @endif
                 @endforeach
             @else
             <input type="text" name="jawaban[{{$s["id"]}}]" class="form-control" required>

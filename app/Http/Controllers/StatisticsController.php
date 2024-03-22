@@ -26,9 +26,7 @@ class StatisticsController extends Controller
 
         $form = Form::find($id_form);
 
-        $question = Question::where("form_id", $id_form)->get();
-
-        return view("statistics.soalStats", compact("title", "form", "question"));
+        return view("statistics.soalStats", compact("title", "form"));
     }
 
     public function detail($id_soal){
@@ -41,10 +39,10 @@ class StatisticsController extends Controller
             $label = array();
             $question = Question::find($id_soal);
 
-            $jawaban = Answer::where("soal_id", $id_soal)->get();
+            $jawaban = Answer::where("question_id", $id_soal)->get();
 
             foreach($jawaban as $j){
-                $responden = count(Responden::where("soal_id", $id_soal)->where("jawaban", $j["answer"])->get());
+                $responden = count(Responden::where("question_id", $id_soal)->where("jawaban", $j["answer"])->get());
                 array_push($data, $responden);
                 array_push($label, $j["answer"]);
             }

@@ -13,7 +13,7 @@ class Answer extends Model
 
     protected $fillable = [
         "answer",
-        "soal_id"
+        "question_id"
     ];
 
     public function question(): BelongsTo{

@@ -17,17 +17,8 @@ class AnsweringController extends Controller
         $form = Form::where("slug", $slug)->first();
 
         if($form != null){
-
-            $idform = $form->id;
     
-            $creator = User::find($form->user_id);
-    
-    
-    
-            $soal = Question::where("form_id", $idform)->get();
-            $jawaban = Answer::get();
-    
-            return view("mengerjakan", compact("form", "creator", "soal", "jawaban"));
+            return view("mengerjakan", compact("form"));
         }else{
             return response("Form Is Not found", 404);
         }
@@ -57,7 +48,7 @@ class AnsweringController extends Controller
                     "group" => $randGroup,
                     "pertanyaan" => $key,
                     "jawaban" => $value,
-                    "soal_id" => $request->id_soal[$success]
+                    "question_id" => $request->id_soal[$success]
                 ]);
     
                 if($create){

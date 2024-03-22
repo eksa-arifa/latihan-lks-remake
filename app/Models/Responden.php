@@ -16,7 +16,7 @@ class Responden extends Model
         "group",
         "pertanyaan",
         "jawaban",
-        "soal_id"
+        "question_id"
     ];
 
     public function question(): BelongsTo{
